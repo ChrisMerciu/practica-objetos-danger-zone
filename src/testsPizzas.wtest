@@ -1,0 +1,65 @@
+import PracticaPizzas.*
+describe "Tests de Pizzas" {
+    test "Un pizzero cocina una pizza"{
+        const pizzero = new Pizzero()
+        pizzero.hacerPizza()
+
+        assert.equals(450, pizzero.pizza().masa())
+        assert.equals(0.5, pizzero.pizza().coccion())
+        assert.equals(["tomate","muzzarella"], pizzero.pizza().ingredientesDePizza())
+    }
+
+    test "Una pizza está cruda si su grado de cocción es menor a 0.4 "{
+        const pizza = new Pizza(masaInicial = 500, gradoDeCoccion = 0.1, ingredientes = ["tomate"])
+        pizza.cocinarPor(10)
+
+        assert.that(pizza.estaCruda())
+    }
+
+    test "Una pizza está quemada si su grado de cocción es mayor a 1.0 "{
+        const pizza = new Pizza(masaInicial = 500, gradoDeCoccion = 0.9, ingredientes = ["tomate"])
+        pizza.cocinarPor(10)
+
+        assert.that(pizza.estaQuemada())
+    }
+
+    test "Una pizza está cargada si tiene más de una vez el mismo ingrediente"{
+        const pizza = new Pizza(masaInicial = 500, gradoDeCoccion = 0.3, ingredientes = ["tomate"])
+        pizza.agregarIngrediente("tomate")
+
+        assert.that(pizza.estaCargada())
+    }
+}
+
+describe "Ejemplo de Concurso del parcial" {
+    test "Gana Facu si se siente arriesgado y el ingrediente del día en La Marítima son las aceitunas" {
+    const pizzeroMaritimo1 = new PizzeroMaritimo(ingredienteFavorito="atun")
+    const pizzeroMaritimo2 = new PizzeroMaritimo(ingredienteFavorito="morrones")
+    contrera.cambiarReferente(zeff)
+    facu.cambiarHumor("arriesgado")
+    pizzeriaMaritima.ingredienteDelDia("aceituna")
+	const concursoEjemplo = new Concurso(jurado=[zeff,contrera],pizzerosConcursantes=[pizzeroMaritimo1,pizzeroMaritimo2,facu,carla])
+
+	assert.equals(facu, concursoEjemplo.iniciarConcurso())
+}
+test "Gana el 2° pizzero de La Marítima si Facu se siente conservador y el ingrediente del día en La Marítima es el ananá." {
+    const pizzeroMaritimo1 = new PizzeroMaritimo(ingredienteFavorito="atun")
+    const pizzeroMaritimo2 = new PizzeroMaritimo(ingredienteFavorito="morrones")
+    contrera.cambiarReferente(zeff)
+    facu.cambiarHumor("conservador")
+    pizzeriaMaritima.ingredienteDelDia("anana")
+	const concursoEjemplo = new Concurso(jurado=[zeff,contrera],pizzerosConcursantes=[pizzeroMaritimo1,pizzeroMaritimo2,facu,carla])
+	assert.equals(pizzeroMaritimo2, concursoEjemplo.iniciarConcurso())
+}
+test "No hay ganador posible si Facu se siente conservador y el ingrediente del día en La Marítima es el atún." {
+    const pizzeroMaritimo1 = new PizzeroMaritimo(ingredienteFavorito="atun")
+    const pizzeroMaritimo2 = new PizzeroMaritimo(ingredienteFavorito="morrones")
+    contrera.cambiarReferente(zeff)
+    facu.cambiarHumor("conservador")
+    pizzeriaMaritima.ingredienteDelDia("atun")
+	const concursoEjemplo = new Concurso(jurado=[zeff,contrera],pizzerosConcursantes=[pizzeroMaritimo1,pizzeroMaritimo2,facu,carla])
+	assert.throwsExceptionWithMessage("No hay ganador posible",
+		{concursoEjemplo.iniciarConcurso()}
+	)
+}
+}
