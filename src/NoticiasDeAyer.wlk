@@ -4,7 +4,7 @@ const dosDiasAtras = hoy.minusDays(2)
 const ultimaSemana = hoy.minusDays(7)
 const haceUnAno = hoy.minusYears(1)
 class Noticia{
-    const property fechaDePublicacion
+    const property fechaDePublicacion = new Date()
     var property personaQueLaPublico = "nadie"
     const property gradoDeImportancia
     const property titulo
